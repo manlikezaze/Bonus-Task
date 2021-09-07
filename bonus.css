@@ -1,0 +1,62 @@
+*, *::before, *::after {
+  box-sizing: border-box
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.avatar {
+  width: 350px;
+  height: 250px;
+  border-radius: 10%;
+  background-image: url('https://scontent-vie1-1.xx.fbcdn.net/v/t1.6435-9/116255167_1260075484338850_8543921105331053389_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=e3f864&_nc_ohc=UwzWsLD_HGIAX_-09fh&_nc_oc=AQkvCXOeJS7LhfpK5LVPuXzv1oaZAuow1X3clqBbJGZQcLYYx-KYoCFhFgd4yR5-hbwjQcYqt9Zp0WXa7WL-FtdQ&_nc_ht=scontent-vie1-1.xx&oh=8494ea4e097cb850a984c0df358d8fee&oe=615D2592');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.avatar::before,
+.avatar::after {
+  --scale: 0;
+  --arrow-size: 10px;
+  --tooltip-color: brown;
+
+  position: absolute;
+  top: -.25rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(var(--translate-y, 0)) scale(var(--scale));
+  transition: 150ms transform;
+  transform-origin: bottom center;
+}
+
+.avatar::before {
+  --translate-y: calc(-100% - var(--arrow-size));
+
+  content: attr(data-tooltip);
+  color: white;
+  padding: .5rem;
+  border-radius: .3rem;
+  text-align: center;
+  width: max-content;
+  max-width: 100%;
+  background: var(--tooltip-color);
+}
+
+.avatar:hover::before,
+.avatar:hover::after {
+  --scale: 1;
+}
+
+.avatar::after {
+  --translate-y: calc(-1 * var(--arrow-size));
+
+  content: '';
+  border: var(--arrow-size) solid transparent;
+  border-top-color: var(--tooltip-color);
+  transform-origin: top center;
+}
